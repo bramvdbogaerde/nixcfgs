@@ -23,13 +23,23 @@
 # The list of additionalInputs will be appended to the buildInputs
 
 { pkgs ? import <nixpkgs> {}, 
-  idea-iu ? import ../editors/intellij/idea-iu.nix {},
+  idea-iu ? import ../../editors/intellij/idea-iu.nix {},
   scala ? pkgs.scala, 
   sbt ? pkgs.sbt,
   jdk ? pkgs.jdk11,
-  additionalInputs ? [] }:
+  additionalInputs ? [],
+  ...}@attrs:
 
-pkgs.mkShell {
+
+let rest = builtins.removeAttrs attrs [
+    "pkgs"
+    "idea-iu"
+    "scala"
+    "sbt"
+    "jdk"
+    "additionalInputs"
+]; in 
+pkgs.mkShell ({
   buildInputs = [
     idea-iu
     # Although a JDK is already included in idea-iu the $JAVA_HOME variable is not set 
@@ -40,4 +50,4 @@ pkgs.mkShell {
     sbt
     ./setup.sh
   ] ++ additionalInputs;
-}
+} // rest)
