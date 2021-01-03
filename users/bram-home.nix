@@ -1,5 +1,6 @@
 { config, pkgs, ...}:
 
+let nixpkgs = import (fetchTarball https://github.com/NixOS/nixpkgs/archive/master.tar.gz) {} ; in 
 {
   programs.home-manager.enable = true;
 
@@ -15,7 +16,7 @@
     chromium
     cifs-utils
     cmake
-    discord
+    nixpkgs.discord
     evince
     feh
     ffmpeg-full
@@ -63,6 +64,7 @@
     unzip
     virt-manager
     whois
+    qt4
     xclip
     xorg.xev
     xorg.xmodmap
@@ -82,14 +84,40 @@
     goPath = "/home/bram/data/development/go/";
   };
 
+  programs.neovim = {
+     enable = true;
+     vimAlias = true;
+     withNodeJs = true;
+     plugins = with nixpkgs.vimPlugins ; [
+        # UI
+        nerdtree
+        vim-airline
+        ctrlp-vim
 
-  # This value determines the Home Manager release that your
-  # configuration is compatible with. This helps avoid breakage
-  # when a new Home Manager release introduces backwards
-  # incompatible changes.
-  #
-  # You can update Home Manager without changing this value. See
-  # the Home Manager release notes for a list of state version
-  # changes in each release.
+        # Color Schemes
+        gruvbox
+
+        # IDE features
+        coc-nvim
+
+        # Languages
+        vim-nix
+        rust-vim
+        vim-scala
+        idris-vim
+        vim-elixir
+        vim-yaml
+      ];
+
+      extraConfig = ''
+        let g:coc_global_extensions = ["coc-tsserver", "coc-json", "coc-metals", "coc-rls"]
+        colorscheme gruvbox
+        let g:airline_powerline_fonts = 1
+        map <C-d> :NERDTreeToggle<CR>
+        let g:ctrlp_custom_ignore = 'vendor\|pkg\|node_modules\|build'
+        let g:ctrlp_use_caching = 0
+      '' + (builtins.readFile ./nvim/coc-mappings.vim);
+  };
+
   home.stateVersion = "21.03";
 }
