@@ -101,6 +101,7 @@ let nixpkgs = import (fetchTarball https://github.com/NixOS/nixpkgs/archive/mast
         coc-nvim
 
         # Languages
+        Coqtail
         vim-nix
         rust-vim
         vim-scala
