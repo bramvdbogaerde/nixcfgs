@@ -8,6 +8,7 @@ let nixpkgs = import (fetchTarball https://github.com/NixOS/nixpkgs/archive/mast
   home.homeDirectory = "/home/bram";
 
   home.packages = with pkgs; [
+    ngrok-1
     dfeet
     any-nix-shell
     appimage-run
@@ -113,10 +114,17 @@ let nixpkgs = import (fetchTarball https://github.com/NixOS/nixpkgs/archive/mast
       extraConfig = ''
         let g:coc_global_extensions = ["coc-tsserver", "coc-json", "coc-metals", "coc-rls"]
         colorscheme gruvbox
-        let g:airline_powerline_fonts = 1
+        let g:airline_poweraline_fonts = 1
         map <C-d> :NERDTreeToggle<CR>
-        let g:ctrlp_custom_ignore = 'vendor\|pkg\|node_modules\|build'
+        let g:ctrlp_custom_ignore = 'vendor\|pkg\|node_modules\|build\|target'
         let g:ctrlp_use_caching = 0
+
+        set shiftround  " Round indent to multiple of 'shiftwidth'
+        set smartindent " Do smart indenting when starting a new line
+        set autoindent  " Copy indent from current line, over to the new line
+        set expandtab
+        set shiftwidth=3
+        set softtabstop=3
       '' + (builtins.readFile ./nvim/coc-mappings.vim);
   };
 
