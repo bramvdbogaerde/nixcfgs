@@ -116,6 +116,8 @@ let nixpkgs = import (fetchTarball https://github.com/NixOS/nixpkgs/archive/mast
         colorscheme gruvbox
         let g:airline_poweraline_fonts = 1
         map <C-d> :NERDTreeToggle<CR>
+        nmap <silent> <leader>en <Plug>(coc-diagnostic-next-error)
+
         let g:ctrlp_custom_ignore = 'vendor\|pkg\|node_modules\|build\|target'
         let g:ctrlp_use_caching = 0
 
