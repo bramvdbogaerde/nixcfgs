@@ -109,10 +109,11 @@ let nixpkgs = import (fetchTarball https://github.com/NixOS/nixpkgs/archive/mast
         idris-vim
         vim-elixir
         vim-yaml
+        vimtex
       ];
 
       extraConfig = ''
-        let g:coc_global_extensions = ["coc-tsserver", "coc-json", "coc-metals", "coc-rls"]
+        let g:coc_global_extensions = ["coc-tsserver", "coc-json", "coc-metals", "coc-rls", "coc-vimtex" ]
         colorscheme gruvbox
         let g:airline_poweraline_fonts = 1
         map <C-d> :NERDTreeToggle<CR>
