@@ -1,4 +1,4 @@
-export PATH="$coreutils/bin:$gnutar/bin:$gzip/bin:$gnused/bin"
+export PATH="$findutils/bin:$coreutils/bin:$gnutar/bin:$gzip/bin:$gnused/bin"
 
 source $unpack
 
