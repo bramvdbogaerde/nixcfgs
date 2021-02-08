@@ -23,7 +23,6 @@
 # The list of additionalInputs will be appended to the buildInputs
 
 { pkgs ? import <nixpkgs> {}, 
-  idea-iu ? import ../../editors/intellij/idea-iu.nix {},
   scala ? pkgs.scala, 
   sbt ? pkgs.sbt,
   jdk ? pkgs.jdk11,
@@ -41,10 +40,6 @@ let rest = builtins.removeAttrs attrs [
 ]; in 
 pkgs.mkShell ({
   buildInputs = [
-    idea-iu
-    # Although a JDK is already included in idea-iu the $JAVA_HOME variable is not set 
-    # automatically, by adding the dependencies here, the $JAVA_HOME directory will
-    # be set correctly
     jdk
     scala 
     sbt
