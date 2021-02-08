@@ -29,6 +29,7 @@ let nixpkgs = import (fetchTarball https://github.com/NixOS/nixpkgs/archive/mast
     gnumake
     gnupg
     htop
+    libreoffice
     i3status-rust
     inotify-tools
     insomnia
