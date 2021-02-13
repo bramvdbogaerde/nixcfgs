@@ -1,6 +1,7 @@
 { config, pkgs, ...}:
 
-let nixpkgs = import (fetchTarball https://github.com/NixOS/nixpkgs/archive/master.tar.gz) {} ; in 
+let nixpkgs = import (fetchTarball https://github.com/NixOS/nixpkgs/archive/master.tar.gz) {} ;
+    ambienttalk = import ./nvim/ambienttalk-plugin.nix ; in 
 {
   programs.home-manager.enable = true;
 
@@ -111,6 +112,7 @@ let nixpkgs = import (fetchTarball https://github.com/NixOS/nixpkgs/archive/mast
         vim-elixir
         vim-yaml
         vimtex
+        (ambienttalk {})
       ];
 
       extraConfig = ''
@@ -130,6 +132,7 @@ let nixpkgs = import (fetchTarball https://github.com/NixOS/nixpkgs/archive/mast
         set expandtab
         set shiftwidth=3
         set softtabstop=3
+        filetype plugin on
       '' + (builtins.readFile ./nvim/coc-mappings.vim);
   };
 
