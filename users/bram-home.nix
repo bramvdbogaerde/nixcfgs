@@ -4,16 +4,21 @@ let nixpkgs = import (fetchTarball https://github.com/NixOS/nixpkgs/archive/mast
     ambienttalk = import ./nvim/ambienttalk-plugin.nix ; in 
 {
   programs.home-manager.enable = true;
+  programs.termite.enable = true;
+  programs.termite.font = "Monospace 14";
+  programs.termite.backgroundColor = "rgba(63, 63, 63, 0.8)";
 
   home.username = "bram";
   home.homeDirectory = "/home/bram";
 
   home.packages = with pkgs; [
     ngrok-1
+    keepassxc
     dfeet
     any-nix-shell
     appimage-run
     arandr
+    playerctl
     bind
     chromium
     cifs-utils
@@ -48,7 +53,7 @@ let nixpkgs = import (fetchTarball https://github.com/NixOS/nixpkgs/archive/mast
     openjdk
     pavucontrol
     powerline-fonts
-    racket-minimal
+    racket
     ranger
     remmina
     rofi
@@ -56,7 +61,7 @@ let nixpkgs = import (fetchTarball https://github.com/NixOS/nixpkgs/archive/mast
     samba
     slack
     sonic-pi
-    spotify
+    nixpkgs.spotify
     steam
     tcpdump
     teams
@@ -133,8 +138,13 @@ let nixpkgs = import (fetchTarball https://github.com/NixOS/nixpkgs/archive/mast
         set shiftwidth=3
         set softtabstop=3
         filetype plugin on
+
+        let g:iat_binary_location = "/home/bram/.local/bin/iat"
       '' + (builtins.readFile ./nvim/coc-mappings.vim);
   };
+
+  services.syncthing.enable = true;
+  services.syncthing.tray = true;
 
   home.stateVersion = "21.03";
 }
