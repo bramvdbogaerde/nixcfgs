@@ -30,6 +30,7 @@ let nixpkgs = import (fetchTarball https://github.com/NixOS/nixpkgs/archive/mast
     file
     flameshot
     font-awesome
+    vscode
     gnome3.gedit
     gnome3.ghex
     gnumake
