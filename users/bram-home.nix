@@ -1,7 +1,10 @@
 { config, pkgs, ...}:
 
 let nixpkgs = import (fetchTarball https://github.com/NixOS/nixpkgs/archive/master.tar.gz) {} ;
-    ambienttalk = import ./nvim/ambienttalk-plugin.nix ; in 
+    ambienttalk = import ./nvim/ambienttalk-plugin.nix ; 
+    ott = import ./nvim/ott-plugin.nix ;
+    pycharm = import ../editors/pycharm/pycharm.nix;
+    idea = import ../editors/intellij/idea-iu.nix; in 
 {
   programs.home-manager.enable = true;
   programs.termite.enable = true;
@@ -13,7 +16,14 @@ let nixpkgs = import (fetchTarball https://github.com/NixOS/nixpkgs/archive/mast
 
   home.packages = with pkgs; [
     ngrok-1
+    zbar
+    android-studio
+    okular
     keepassxc
+    (pycharm {})
+    ( import ../apps/jabref/default.nix ).jabref
+    nixpkgs.croc
+    nixpkgs.gtetrinet
     dfeet
     any-nix-shell
     appimage-run
@@ -22,6 +32,7 @@ let nixpkgs = import (fetchTarball https://github.com/NixOS/nixpkgs/archive/mast
     bind
     chromium
     cifs-utils
+    python38Packages.tkinter
     cmake
     nixpkgs.discord
     evince
@@ -118,6 +129,8 @@ let nixpkgs = import (fetchTarball https://github.com/NixOS/nixpkgs/archive/mast
         vim-elixir
         vim-yaml
         vimtex
+        vim-grammarous
+        (ott {})
         (ambienttalk {})
       ];
 
@@ -141,6 +154,9 @@ let nixpkgs = import (fetchTarball https://github.com/NixOS/nixpkgs/archive/mast
         filetype plugin on
 
         let g:iat_binary_location = "/home/bram/.local/bin/iat"
+        nmap <leader>sc :w!<CR>:!aspell -t -c % -d en<CR>:e! %<CR>
+        autocmd Filetype tex setlocal spell
+        autocmd Filetype tex setlocal spelllang=en
       '' + (builtins.readFile ./nvim/coc-mappings.vim);
   };
 
