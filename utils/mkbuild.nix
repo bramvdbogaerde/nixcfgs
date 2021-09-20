@@ -16,6 +16,6 @@ let rest = builtins.removeAttrs attrs [
 stdenv.mkDerivation ({
   builder = "${bash}/bin/bash";
   args = [./setup.sh];
-  binaries = [ coreutils gnutar gzip gnused gnumake gcc llvmPackages.bintools ] ++ binaries;
+  binaries = [ coreutils gnutar gzip gnused gnumake gcc binutils.bintools busybox ] ++ binaries;
   inherit buildScript;
 } // rest)

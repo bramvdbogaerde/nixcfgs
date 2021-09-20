@@ -12,5 +12,5 @@ mkBuild {
   };
   inherit z3Version;
   buildScript = ./build.sh;
-  binaries = [ jdk python3 ];
+  binaries = [ jdk python3  ];
 }
