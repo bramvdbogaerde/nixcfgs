@@ -32,7 +32,6 @@
 
 let rest = builtins.removeAttrs attrs [
     "pkgs"
-    "idea-iu"
     "scala"
     "sbt"
     "jdk"
